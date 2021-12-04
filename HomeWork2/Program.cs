@@ -35,7 +35,9 @@ namespace HomeWork2
                                   "3. Show generated test cases\n" +
                                   "4. Shown generated bug tickets\n" +
                                   "5. Remove the test case\n" +
-                                  "6. Remove bug");
+                                  "6. Remove bug\n" +
+                                  "7. Create Test case\n" +
+                                  "8. Create bug");
                 if (int.TryParse(Console.ReadLine(), out int value))
                 {
                     switch (value)
@@ -45,7 +47,7 @@ namespace HomeWork2
                             tempInt = random.Next(0, 6);
                             for (int i = 0; i < tempInt; i++)
                             {
-                                testCaseList.Add(IssueBuilder.CreateTestCase());
+                                testCaseList.Add(IssueBuilder.GenerateTestCases());
                             }
                             Console.WriteLine($"{tempInt} test cases created, press any button to continue");
                             Console.ReadKey();
@@ -55,7 +57,7 @@ namespace HomeWork2
                             tempInt = random.Next(0, 6);
                             for (int i = 0; i < tempInt; i++)
                             {
-                                bugList.Add(IssueBuilder.CreateBug());
+                                bugList.Add(IssueBuilder.GenerateBugs());
                             }
                             Console.WriteLine($"{tempInt} bugs created, press any button to continue");
                             Console.ReadKey();
@@ -160,7 +162,12 @@ namespace HomeWork2
                             
                             Console.ReadKey();
                             continue;
-
+                        case 7:
+                            testCaseList.Add(IssueBuilder.CreateTestCase());
+                            break;
+                        case 8:
+                            testCaseList.Add(IssueBuilder.CreateBug());
+                            break;
                         default:
                             Console.WriteLine("Incorrect input, press any button to continue");
                             Console.ReadKey();

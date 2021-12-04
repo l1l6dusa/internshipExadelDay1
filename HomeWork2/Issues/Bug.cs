@@ -40,6 +40,11 @@ namespace HomeWork2
             _expectedResult = expectedResult;
         }
 
+        public Bug() : base(Priority.Low, "", "", Status.New)
+        {
+            
+        }
+
 
         public override void Display()
         {
@@ -50,8 +55,15 @@ namespace HomeWork2
                               $"Expected Result: {_expectedResult}"
                               );
         }
-        
-        
-        
+
+        public void Fill(Priority priority, Status status, string summary, string preconditions, int testCaseId, int stepNumber, string actualResult, string expectedResult)
+        {
+            base.Fill(priority, status, summary, preconditions);
+            _testCaseId = testCaseId;
+            _stepNumber = stepNumber;
+            _actualResult = actualResult;
+            _expectedResult = expectedResult;
+
+        }
     }
 }

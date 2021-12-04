@@ -15,7 +15,11 @@ namespace HomeWork2
         {
             _steps = steps;
         }
-        
+
+        public TestCase():base(Priority.Low, "", "", Status.New)
+        {
+            
+        }
 
         public override void Display()
         {
@@ -26,5 +30,12 @@ namespace HomeWork2
             }
         }
 
+        public void Fill(Priority priority, Status status, string summary, string preconditions,IEnumerable<Step> steps)
+        {
+            base.Fill(priority, status, summary, preconditions);
+            _steps.AddRange(steps);
+
+        }
+        
     }
 }

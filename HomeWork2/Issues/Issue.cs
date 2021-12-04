@@ -71,5 +71,13 @@ namespace HomeWork2
                               $"Preconditions: {_preconditions}\n"
                               );
         }
+
+        protected void Fill(Priority priority, Status status, string summary, string preconditions)
+        {
+            _priority = priority;
+            _summary = summary;
+            _preconditions = preconditions;
+            _status = status;
+        }
     }
 }
