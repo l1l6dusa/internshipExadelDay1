@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 
 namespace HomeWork2
 {
     class Program
     {
+        
+        
         static void Main(string[] args)
         {
             var tempInt = 0;
@@ -27,7 +30,12 @@ namespace HomeWork2
                 {
                     
                 }
-                Console.WriteLine("Select action: \n1. Generate test case\n2. Generate bug ticket;\n3. Show generated test cases\n4. Shown generated bug tickets");
+                Console.WriteLine("Select action: \n1. Generate test case\n" +
+                                  "2. Generate bug ticket\n" +
+                                  "3. Show generated test cases\n" +
+                                  "4. Shown generated bug tickets\n" +
+                                  "5. Remove the test case\n" +
+                                  "6. Remove bug");
                 if (int.TryParse(Console.ReadLine(), out int value))
                 {
                     switch (value)
@@ -87,6 +95,72 @@ namespace HomeWork2
                             
                             Console.ReadKey();
                             continue;
+                        case 5:
+                            if (testCaseList.Count > 0)
+                            {
+                                foreach (var testcase in testCaseList)
+                                {
+                                    Console.WriteLine($"ID: {testcase.Id} Summary: {testcase.Summary} Status: {testcase.Status}");
+                                }
+                                Console.WriteLine("Select the ID of the test case which shall be removed: ");
+                                if (int.TryParse(Console.ReadLine(), out value))
+                                {
+                                    if (testCaseList.Find(x=>x.Id == value) != null)
+                                    {
+                                        testCaseList.RemoveAll(x => x.Id == value);
+                                        Console.WriteLine($"TestCase with ID {value} is removed, press any button to continue");
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("Incorrect input, press any button to continue");
+                                    }
+                                    
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Incorrect input, press any button to continue");
+                                }
+                            }
+                            else
+                            {
+                                Console.WriteLine("List is empty, press any button to continue");
+                            }
+                            
+                            Console.ReadKey();
+                            continue;
+                        case 6:
+                            if (bugList.Count > 0)
+                            {
+                                foreach (var bug in bugList)
+                                {
+                                    Console.WriteLine($"ID: {bug.Id} Summary: {bug.Summary} Status: {bug.Status}");
+                                }
+                                Console.WriteLine("Select the ID of the bug which shall be removed: ");
+                                if (int.TryParse(Console.ReadLine(), out value))
+                                {
+                                    if (bugList.Find(x=>x.Id == value) != null)
+                                    {
+                                        bugList.RemoveAll(x => x.Id == value);
+                                        Console.WriteLine($"Bug with ID {value} is removed, press any button to continue");
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("Incorrect input, press any button to continue");
+                                    }
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Incorrect input, press any button to continue");
+                                }
+                            }
+                            else
+                            {
+                                Console.WriteLine("List is empty, press any button to continue");
+                            }
+                            
+                            Console.ReadKey();
+                            continue;
+
                         default:
                             Console.WriteLine("Incorrect input, press any button to continue");
                             Console.ReadKey();
