@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 
-namespace ConsoleApp1
+namespace HomeWork1
 {
     static class Program
     {
