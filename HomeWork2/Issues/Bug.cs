@@ -45,10 +45,42 @@ namespace HomeWork2
             
         }
 
-
-        public override void Display()
+        public void Set()
         {
-            base.Display();
+            base.Set();
+            while (true)
+            {
+                Console.WriteLine("Enter test case ID:");
+                if (int.TryParse(Console.ReadLine(), out var value))
+                {
+                    _testCaseId = value;
+                    break;
+                }
+
+                Console.WriteLine("Incorrect test case ID");
+            }
+
+            while (true)
+            {
+                Console.WriteLine("Enter test case step number:");
+                if (int.TryParse(Console.ReadLine(), out var value))
+                {
+                    _stepNumber = value;
+                    break;
+                }
+
+                Console.WriteLine("Incorrect test case step number");
+            }
+
+            Console.WriteLine("Enter actual result:");
+           _actualResult = Console.ReadLine();
+            Console.WriteLine("Enter expected result:");
+            _expectedResult = Console.ReadLine();
+        }
+
+        public override void Get()
+        {
+            base.Get();
             Console.WriteLine($"Test Case ID: {_testCaseId}\n" +
                               $"Step Number: {_stepNumber}\n" +
                               $"Actual Result: {_actualResult}\n" +

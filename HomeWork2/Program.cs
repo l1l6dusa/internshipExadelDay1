@@ -68,7 +68,7 @@ namespace HomeWork2
                             {
                                 foreach (var testCase in testCaseList)
                                 {
-                                    testCase.Display();
+                                    testCase.Get();
                                     Console.WriteLine();
                                 }
                                 Console.WriteLine("Press any button to continue");
@@ -85,7 +85,7 @@ namespace HomeWork2
                             {
                                 foreach (var bug in bugList)
                                 {
-                                    bug.Display();
+                                    bug.Get();
                                     Console.WriteLine();
                                 }
                                 Console.WriteLine("Press any button to continue");
@@ -163,10 +163,14 @@ namespace HomeWork2
                             Console.ReadKey();
                             continue;
                         case 7:
-                            testCaseList.Add(IssueBuilder.CreateTestCase());
+                            var tempTC = new TestCase();
+                            tempTC.Set();
+                            testCaseList.Add(tempTC);
                             break;
                         case 8:
-                            testCaseList.Add(IssueBuilder.CreateBug());
+                            var tempBug = new Bug();
+                            tempBug.Set();
+                            testCaseList.Add(tempBug);
                             break;
                         default:
                             Console.WriteLine("Incorrect input, press any button to continue");
