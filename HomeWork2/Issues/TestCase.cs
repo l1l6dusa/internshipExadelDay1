@@ -46,7 +46,7 @@ namespace HomeWork2
                 while (true)
                 {
                     Console.Clear();
-                    var value = Actions.Choose(_testStepsWizard);
+                    var value = Extentions.Choose(_testStepsWizard);
                     switch (value)
                         {
                             case 1:
@@ -62,9 +62,8 @@ namespace HomeWork2
                         }
                     break;
                 }
-
-                Console.WriteLine("Add more steps? Y/Any char");
-                var tempValue = Actions.Choose("Yes", "Mo");
+                
+                var tempValue = Extentions.Choose("Add more steps?", "Yes", "Mo");
                 if (tempValue == 1)
                 {
                     continue;
@@ -79,13 +78,6 @@ namespace HomeWork2
         public void AddSteps(IEnumerable<Step> steps)
         {
             _steps.AddRange(steps);
-        }
-        
-        private void Fill(Priority priority, Status status, string summary, string preconditions,IEnumerable<Step> steps)
-        {
-            base.Fill(priority, status, summary, preconditions);
-            _steps.AddRange(steps);
-
         }
 
     }

@@ -2,7 +2,7 @@
 
 namespace HomeWork2
 {
-    public static class Actions
+    public static class Extentions
     {
         public static int Choose(params string[] args)
         {

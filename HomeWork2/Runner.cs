@@ -10,8 +10,9 @@ namespace HomeWork2
         List<Issue> _bugList = new ();
         List<Issue> _testCaseList = new ();
         private readonly string[] _menuWizardItems = {"Create Test case", "Create bug", "Remove the test case", 
-            "Remove bug", "Seed test cases", "Seed bug tickets", "Sort issues", "Filter issues"};
-        private readonly string[] sortingWizardItems = {"Sort Py Priority", "Sort By Id", "Sort by Created Date", "Sort By Summary", "Sort By Status"};
+            "Remove bug", "Seed test cases", "Seed bug tickets", "Show issues", "Show filtered issues"};
+        private readonly string[] sortingWizardItems = {"Sort Py Priority", "Sort By Id", "Sort by Created Date", 
+            "Sort By Summary", "Sort By Status"};
         private readonly string[] filteringOptionsItems = {"Filter By Priority", "Filter By Status"};
         private readonly string[] filteringPriorityItems = { "Low", "Medium", "High", "Critical" };
         private readonly string[] filteringStatusItems = { "New", "InProgress", "Failed", "Done"};
@@ -34,7 +35,7 @@ namespace HomeWork2
                 }
 
                 Console.WriteLine();
-                var value = Actions.Choose("Select action:", _menuWizardItems);
+                var value = Extentions.Choose("Select action:", _menuWizardItems);
                 switch (value)
                     {
                         case 1:
@@ -105,7 +106,7 @@ namespace HomeWork2
         {
             Console.WriteLine();
             Console.Clear();
-            var value = Actions.Choose("Select type of issues:", new []{"Bug", "Test Case"});
+            var value = Extentions.Choose("Select type of issues:", new []{"Bug", "Test Case"});
             if (value == 1)
             {
                 SelectSort(_bugList);
@@ -132,7 +133,7 @@ namespace HomeWork2
         private void Filter()
         {
             Console.Clear();
-            var value = Actions.Choose("Select type:", new[]{"Bug", "Test Case" });
+            var value = Extentions.Choose("Select type:", new[]{"Bug", "Test Case" });
 
             SelectFilter(value == 1 ? _bugList : _testCaseList);
         }
@@ -140,17 +141,17 @@ namespace HomeWork2
         private void SelectFilter(List<Issue> list)
         {
             Console.Clear();
-            var value = Actions.Choose("Select Filtering Options:", filteringOptionsItems);
+            var value = Extentions.Choose("Select Filtering Options:", filteringOptionsItems);
             if (value == 1)
             {
                 Console.Clear();
-                value = Actions.Choose("Select filter:", filteringPriorityItems);
+                value = Extentions.Choose("Select filter:", filteringPriorityItems);
                 DisplayIssues(list.FilterByPriority((Priority)value));
             }
             else
             {
                 Console.Clear();
-                value = Actions.Choose("Select filter:", filteringStatusItems);
+                value = Extentions.Choose("Select filter:", filteringStatusItems);
                 DisplayIssues(list.FilterByStatus((Status)value));
             }
         }
@@ -159,33 +160,33 @@ namespace HomeWork2
         {
             bool ascending = default;
             Console.Clear();
-            var value = Actions.Choose("Select sorting option: ",sortingWizardItems);
+            var value = Extentions.Choose("Select sorting option: ",sortingWizardItems);
             Console.Clear();
             Console.WriteLine("Descending/Ascending?");
             switch (value)
             {
                 case 1:
-                    value = Actions.Choose(sortingOrder);
+                    value = Extentions.Choose(sortingOrder);
                     ascending = value != 1;
                     DisplayIssues(list.SortByPriority(ascending));
                     break;
                 case 2:
-                    value = Actions.Choose(sortingOrder);
+                    value = Extentions.Choose(sortingOrder);
                     ascending = value != 1;
                     DisplayIssues(list.SortById(ascending));
                     break;
                 case 3:
-                    value = Actions.Choose(sortingOrder);
+                    value = Extentions.Choose(sortingOrder);
                     ascending = value != 1;
                     DisplayIssues(list.SortByCreatedDate(ascending));
                     break;
                 case 4:
-                    value = Actions.Choose(sortingOrder);
+                    value = Extentions.Choose(sortingOrder);
                     ascending = value != 1;
                     DisplayIssues(list.SortBySummary(ascending));
                     break;
                 case 5:
-                    value = Actions.Choose(sortingOrder);
+                    value = Extentions.Choose(sortingOrder);
                     ascending = value != 1;
                     DisplayIssues(list.SortByStatus(ascending));
                     break;

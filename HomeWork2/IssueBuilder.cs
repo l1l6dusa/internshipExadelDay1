@@ -63,8 +63,8 @@ namespace HomeWork2
                 {
                     Summary = BuildBugName(),
                     Preconditions = BuildCaseName(),
-                    Priority = (Priority)_random.Next(0, 5),
-                    Status = (Status)_random.Next(0, 5),
+                    Priority = (Priority)_random.Next(1, 5),
+                    Status = (Status)_random.Next(1, 5),
                     ActualResult = BuildBugName(),
                     ExpectedResult = BuildBugName(),
                     StepNumber = _random.Next(0,10),

@@ -66,14 +66,14 @@ namespace HomeWork2
         Status status = default;
         string preconditions = default;
 
-        var value = Actions.Choose("Enter priority", "Low", "Medium", "High", "Critical");
+        var value = Extentions.Choose("Enter priority", "Low", "Medium", "High", "Critical");
         priority = (Priority)value;
         Console.WriteLine("Enter Summary:");
         summary = Console.ReadLine();
         Console.WriteLine("Enter Preconditions");
         preconditions = Console.ReadLine();
         
-        var tempValue = Actions.Choose("Enter Status: ",new[] {"New", "InProgress", "Failed", "Done" });
+        var tempValue = Extentions.Choose("Enter Status: ",new[] {"New", "InProgress", "Failed", "Done" });
         Console.WriteLine("Enter Status:\n1 - New\n2 - InProgress\n3 - Failed\n4 - Done");
         status = (Status)tempValue;
         
