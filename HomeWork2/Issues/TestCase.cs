@@ -46,7 +46,7 @@ namespace HomeWork2
                 while (true)
                 {
                     Console.Clear();
-                    var value = Extentions.Choose(_testStepsWizard);
+                    var value = Helper.Choose(_testStepsWizard);
                     switch (value)
                         {
                             case 1:
@@ -63,7 +63,7 @@ namespace HomeWork2
                     break;
                 }
                 
-                var tempValue = Extentions.Choose("Add more steps?", "Yes", "Mo");
+                var tempValue = Helper.Choose("Add more steps?", "Yes", "Mo");
                 if (tempValue == 1)
                 {
                     continue;

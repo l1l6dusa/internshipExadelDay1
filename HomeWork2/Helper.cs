@@ -1,53 +1,53 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace HomeWork2
 {
     public static class Helper
     {
-        public static IEnumerable<T> SortByPriority<T>(this IEnumerable<T> collection, bool ascending) where T: Issue
+        public static int Choose(params string[] args)
         {
-            return (@ascending ? collection.OrderBy(x => x.Priority) : collection.OrderByDescending(x => x.Priority));
-        }
-        
-        public static IEnumerable<T> SortById<T>(this IEnumerable<T> collection, bool ascending) where T: Issue
-        {
-            return @ascending ? collection.OrderBy(x => x.Id) : collection.OrderByDescending(x => x.Id);
-        }
-        
-        public static IEnumerable<T> SortByCreatedDate<T>(this IEnumerable<T> collection, bool ascending) where T: Issue
-        {
-            return @ascending ? collection.OrderBy(x => x.CreationDate) : collection.OrderByDescending(x => x.CreationDate);
-        }
-        
-        public static IEnumerable<T> SortBySummary<T>(this IEnumerable<T> collection, bool ascending) where T: Issue
-        {
-            return @ascending ? collection.OrderBy(x => x.Summary) : collection.OrderByDescending(x => x.Summary);
-        }
-        
-        public static IEnumerable<T> SortByStatus<T>(this IEnumerable<T> collection, bool ascending) where T: Issue
-        {
-            return @ascending ? collection.OrderBy(x => x.Status) : collection.OrderByDescending(x => x.Status);
-        }
+            while (true)
+            {
+                Console.Clear();
+                for (var i = 0; i < args.Length; i++)
+                {
+                    Console.WriteLine($"{i + 1}. {args[i]}");
+                }
 
-        public static IEnumerable<T> FilterByPriority<T>(this IEnumerable<T> collection, Priority priority) where T: Issue
+                Console.Write($"Select the value between 1-{args.Length}: ");
+                if (int.TryParse(Console.ReadLine(), out var value) && value > 0 && value <= args.Length)
+                {
+                    return value;
+                }
+                Console.WriteLine("Incorrect input, press any button to continue");
+                Console.Read();
+            }
+        }
+        public static int Choose(string title, params string[] args)
         {
-            return collection.ToList().FindAll(x => x.Priority == priority);
+            while (true)
+            {
+                Console.WriteLine(title);
+                for (var i = 0; i < args.Length; i++)
+                {
+                    Console.WriteLine($"{i + 1}. {args[i]}");
+                }
+
+                Console.Write($"Select the value between 1-{args.Length}: ");
+                if (int.TryParse(Console.ReadLine(), out var value) && value > 0 && value <= args.Length)
+                {
+                    return value;
+                }
+                Console.WriteLine("Incorrect input, press any button to continue");
+                Console.Read();
+            }
         }
         
-        public static IEnumerable<T> FilterByStatus<T>(this IEnumerable<T> collection, Status status) where T: Issue
-        {
-            return collection.ToList().FindAll(x => x.Status == status);
-        }
-
-
         public static string Capitalize(this string target)
         {
             var charArray = target.ToCharArray();
             charArray[0] = Char.ToUpper(charArray[0]);
             return String.Concat(charArray);
         }
-        
     }
 }

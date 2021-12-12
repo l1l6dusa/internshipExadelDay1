@@ -35,7 +35,7 @@ namespace HomeWork2
                 }
 
                 Console.WriteLine();
-                var value = Extentions.Choose("Select action:", _menuWizardItems);
+                var value = Helper.Choose("Select action:", _menuWizardItems);
                 switch (value)
                     {
                         case 1:
@@ -106,7 +106,7 @@ namespace HomeWork2
         {
             Console.WriteLine();
             Console.Clear();
-            var value = Extentions.Choose("Select type of issues:", new []{"Bug", "Test Case"});
+            var value = Helper.Choose("Select type of issues:", new []{"Bug", "Test Case"});
             if (value == 1)
             {
                 SelectSort(_bugList);
@@ -133,7 +133,7 @@ namespace HomeWork2
         private void Filter()
         {
             Console.Clear();
-            var value = Extentions.Choose("Select type:", new[]{"Bug", "Test Case" });
+            var value = Helper.Choose("Select type:", new[]{"Bug", "Test Case" });
 
             SelectFilter(value == 1 ? _bugList : _testCaseList);
         }
@@ -141,17 +141,17 @@ namespace HomeWork2
         private void SelectFilter(List<Issue> list)
         {
             Console.Clear();
-            var value = Extentions.Choose("Select Filtering Options:", filteringOptionsItems);
+            var value = Helper.Choose("Select Filtering Options:", filteringOptionsItems);
             if (value == 1)
             {
                 Console.Clear();
-                value = Extentions.Choose("Select filter:", filteringPriorityItems);
+                value = Helper.Choose("Select filter:", filteringPriorityItems);
                 DisplayIssues(list.FilterByPriority((Priority)value));
             }
             else
             {
                 Console.Clear();
-                value = Extentions.Choose("Select filter:", filteringStatusItems);
+                value = Helper.Choose("Select filter:", filteringStatusItems);
                 DisplayIssues(list.FilterByStatus((Status)value));
             }
         }
@@ -160,33 +160,33 @@ namespace HomeWork2
         {
             bool ascending = default;
             Console.Clear();
-            var value = Extentions.Choose("Select sorting option: ",sortingWizardItems);
+            var value = Helper.Choose("Select sorting option: ",sortingWizardItems);
             Console.Clear();
             Console.WriteLine("Descending/Ascending?");
             switch (value)
             {
                 case 1:
-                    value = Extentions.Choose(sortingOrder);
+                    value = Helper.Choose(sortingOrder);
                     ascending = value != 1;
                     DisplayIssues(list.SortByPriority(ascending));
                     break;
                 case 2:
-                    value = Extentions.Choose(sortingOrder);
+                    value = Helper.Choose(sortingOrder);
                     ascending = value != 1;
                     DisplayIssues(list.SortById(ascending));
                     break;
                 case 3:
-                    value = Extentions.Choose(sortingOrder);
+                    value = Helper.Choose(sortingOrder);
                     ascending = value != 1;
                     DisplayIssues(list.SortByCreatedDate(ascending));
                     break;
                 case 4:
-                    value = Extentions.Choose(sortingOrder);
+                    value = Helper.Choose(sortingOrder);
                     ascending = value != 1;
                     DisplayIssues(list.SortBySummary(ascending));
                     break;
                 case 5:
-                    value = Extentions.Choose(sortingOrder);
+                    value = Helper.Choose(sortingOrder);
                     ascending = value != 1;
                     DisplayIssues(list.SortByStatus(ascending));
                     break;
