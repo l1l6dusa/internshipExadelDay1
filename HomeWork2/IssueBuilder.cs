@@ -1,188 +1,107 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace HomeWork2
 {
     public static class IssueBuilder
     {
-        private static Random _random = new Random();
-
-        public static Bug GenerateBugs()
+        private static readonly Random _random = new Random();
+        private static string[] beginning =
         {
-            var tempBug = new Bug((Priority)_random.Next(0, 5), "test", "test", (Status)_random.Next(0, 5),
-                _random.Next(0, 11), _random.Next(0, 11), "test", "test");
-            return tempBug;
+            "navbar", "spinner", "report", "login", "user", "element", "developer"
+        };
+        private static string[] verbConjunction = 
+        {
+            "shows", "is", "loads", "represents", "blocked by", "disables",
+            "clicks"
+        };
+        private static string[] ending =
+        {
+            "nothing", "incorrect info", "empty", "depressed", "ad banner", 
+            "pron site ad", "scooby-doo"
+        };
+        private static string[] testCaseBeginning =
+        {
+            "Check that", "Verify that", "Make Sure that", "See that", "Observe that"
+        };
+        
+        private static string[] TSAction =
+        {
+            "Hover over an a field", "Login", "Click 'Pay'", "Click Back", "Expand the menu"
+        };
+
+        private static string[] TSResult =
+        {
+            "Menu expanded", "Confirmation banner is shown", "Warning is shown", "An error is shown",
+            "New page is opened", "universe collapsed"
+        };
+
+        private static string BuildCaseName()
+        {
+            return new StringBuilder()
+                .Append(testCaseBeginning[_random.Next(0, testCaseBeginning.Length - 1)]).Append(' ')
+                .Append(beginning[_random.Next(0, testCaseBeginning.Length - 1)]).Append(' ')
+                .Append(verbConjunction[_random.Next(0, verbConjunction.Length - 1)]).Append(' ')
+                .Append(ending[_random.Next(0, ending.Length - 1)]).ToString();
+        } 
+        private static string BuildBugName()
+        {
+            return new StringBuilder()
+                .Append(beginning[_random.Next(0, testCaseBeginning.Length - 1)]).Append(' ')
+                .Append(verbConjunction[_random.Next(0, verbConjunction.Length - 1)]).Append(' ')
+                .Append(ending[_random.Next(0, ending.Length - 1)]).ToString();
         }
 
-        public static TestCase GenerateTestCases()
+        public static List<Bug> SeedBugs(int qty)
         {
-            List<Step> tempSteps = new List<Step>();
-            for (var i = 0; i < _random.Next(1, 6); i++)
-            {
-                tempSteps.Add(new Step(i, $"{i} action", $"{i} result"));
-            }
-
-            var tempTestCase = new TestCase((Priority)_random.Next(0, 5), "test", "test", (Status)_random.Next(0, 5),
-                tempSteps);
-            return tempTestCase;
-        }
-
-        public static Bug CreateBug()
-        {
-            var tempBug = new Bug();
-            while (true)
-            {
-                Console.WriteLine("Enter priority:\n1 - Low\n2 - Medium\n3 - High\n4 - Critical");
-                if (int.TryParse(Console.ReadLine(), out var value))
-                {
-                    if (value is < 4 and >= 0)
-                    {
-                        tempBug.Priority = (Priority)value;
-                        break;
-                    }
-                }
-
-                Console.WriteLine("Incorrect priority");
-            }
-
-            Console.WriteLine("Enter Summary:");
-            tempBug.Summary = Console.ReadLine();
-            Console.WriteLine("Enter Preconditions");
-            tempBug.Preconditions = Console.ReadLine();
-            while (true)
-            {
-                Console.WriteLine("Enter Status:\n1 - New\n2 - InProgress\n3 - Failed\n4 - Done");
-                if (int.TryParse(Console.ReadLine(), out var value))
-                {
-                    if (value is < 4 and >= 0)
-                    {
-                        tempBug.Status = (Status)value;
-                        break;
-                    }
-                }
-
-                Console.WriteLine("Incorrect status");
-            }
-
-            while (true)
-            {
-                Console.WriteLine("Enter test case ID:");
-                if (int.TryParse(Console.ReadLine(), out var value))
-                {
-                    tempBug.TestCaseId = value;
-                    break;
-                }
-
-                Console.WriteLine("Incorrect test case ID");
-            }
-
-            while (true)
-            {
-                Console.WriteLine("Enter test case step number:");
-                if (int.TryParse(Console.ReadLine(), out var value))
-                {
-                    tempBug.StepNumber = value;
-                    break;
-                }
-
-                Console.WriteLine("Incorrect test case step number");
-            }
-
-            Console.WriteLine("Enter actual result:");
-            tempBug.ActualResult = Console.ReadLine();
-            Console.WriteLine("Enter expected result:");
-            tempBug.ExpectedResult = Console.ReadLine();
-            return tempBug;
-        }
-
-        public static TestCase CreateTestCase()
-        {
-            var steps = new List<Step>();
-            Priority priority = Priority.Low;
-            string summary = "";
-            Status status = Status.New;
-            string preconditions = "";
+            var list = new List<Bug>();
             
-            while (true)
+            for (int i = 0; i < qty; i++)
             {
-                Console.WriteLine("Enter priority:\n1 - Low\n2 - Medium\n3 - High\n4 - Critical");
-                if (int.TryParse(Console.ReadLine(), out var value))
+                var temp = new Bug()
                 {
-                    if (value is < 4 and >= 0)
-                    {
-                        priority = (Priority)value;
-                        break;
-                    }
-                }
+                    Summary = BuildBugName(),
+                    Preconditions = BuildCaseName(),
+                    Priority = (Priority)_random.Next(0, 5),
+                    Status = (Status)_random.Next(0, 5),
+                    ActualResult = BuildBugName(),
+                    ExpectedResult = BuildBugName(),
+                    StepNumber = _random.Next(0,10),
+                    TestCaseId = _random.Next(0,10)
+                };
+                list.Add(temp);
+            }
+            return list;
+        }
+        
+        public static IEnumerable<TestCase> SeedTestCases(int qty)
+        {
+            var list = new List<TestCase>();
 
-                Console.WriteLine("Incorrect priority");
+            for (int i = 0; i < qty; i++)
+            {
+                var tempTSList = new List<Step>();
+                var testCase = new TestCase()
+                {
+                    Summary = BuildCaseName(),
+                    Preconditions = BuildCaseName(),
+                    Priority = (Priority)_random.Next(0, 5),
+                    Status = (Status)_random.Next(0, 5),
+                };
+                var numberOfSteps = _random.Next(1, 5);
+                for (var j = 0; j < numberOfSteps; j++)
+                {
+                    var action = TSAction[_random.Next(0, TSAction.Length)];
+                    var result = TSResult[_random.Next(0, TSResult.Length)];
+                    var tempStep = new Step(j, action, result);
+                    tempTSList.Add(tempStep);
+                }
+                testCase.AddSteps(tempTSList);
+                list.Add(testCase);
             }
 
-            Console.WriteLine("Enter Summary:");
-            summary = Console.ReadLine();
-            Console.WriteLine("Enter Preconditions");
-            preconditions = Console.ReadLine();
-            while (true)
-            {
-                Console.WriteLine("Enter Status:\n1 - New\n2 - InProgress\n3 - Failed\n4 - Done");
-                if (int.TryParse(Console.ReadLine(), out var value))
-                {
-                    if (value is < 4 and >= 0)
-                    {
-                        status = (Status)value;
-                        break;
-                    }
-                }
-
-                Console.WriteLine("Incorrect status");
-            }
-
-            while (true)
-            {
-                var stepNumber = 0;
-                var tempAction = "";
-                var tempResult = "";
-                
-
-                while (true)
-                {
-                    Console.Clear();
-                    Console.WriteLine("Test steps wizard:\n1. Add test step\n2.Continue");
-                    
-                    if (int.TryParse(Console.ReadLine(), out var value))
-                    {
-                        switch (value)
-                        {
-                            case 1:
-                                Console.Clear();
-                                Console.WriteLine("Specify the Action:");
-                                tempAction = Console.ReadLine();
-                                Console.WriteLine("Specify the result");
-                                tempResult = Console.ReadLine();
-                                steps.Add(new Step(stepNumber++, tempAction, tempResult));
-                                break;
-                            case 2:
-                                break;
-                        }
-                    }
-                    else
-                    {
-                        Console.WriteLine("Incorrect imput, press any button to continue");
-                    }
-
-                    Console.WriteLine("Add more steps? Y/Any char");
-                    if (Console.ReadLine() == "y")
-                    {
-                        continue;
-                    }
-
-                    break;
-
-                }
-
-                var tempTestCase = new TestCase(priority, summary, preconditions, status, steps);
-                return tempTestCase;
-            }
+            return list;
         }
     }
 }

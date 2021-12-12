@@ -4,45 +4,23 @@ namespace HomeWork2
 {
     public abstract class Issue : IIssue
 
-    {
+    { 
     private static int s_idCounter;
-    private readonly int _id;
-    private readonly DateTime _creationDate;
-    private Priority _priority;
-    private string _summary;
-    private string _preconditions;
-    private Status _status;
 
 
-    #region Unused properties
+    #region Properties
 
-    public int Id => _id;
+    public int Id { get; }
 
-    public DateTime CreationDate => _creationDate;
+    public DateTime CreationDate { get; }
 
-    public Priority Priority
-    {
-        get => _priority;
-        set => _priority = value;
-    }
+    public Priority Priority { get; set; }
 
-    public string Summary
-    {
-        get => _summary;
-        set => _summary = value;
-    }
+    public string Summary { get; set; }
 
-    public string Preconditions
-    {
-        get => _preconditions;
-        set => _preconditions = value;
-    }
+    public string Preconditions { get; set; }
 
-    public Status Status
-    {
-        get => _status;
-        set => _status = value;
-    }
+    public Status Status { get; set; }
 
     #endregion
 
@@ -50,77 +28,55 @@ namespace HomeWork2
     protected Issue(Priority priority, string summary, string preconditions, Status status) : this()
     {
 
-        _priority = priority;
-        _summary = summary;
-        _preconditions = preconditions;
-        _status = status;
+        Priority = priority;
+        Summary = summary;
+        Preconditions = preconditions;
+        Status = status;
     }
 
     private Issue()
     {
-        _id = s_idCounter++;
-        _creationDate = DateTime.Now;
+        Id = s_idCounter++;
+        CreationDate = DateTime.Now;
     }
 
     public virtual void Get()
     {
-        Console.WriteLine($"ID: {_id}\n" +
-                          $"Created At: {_creationDate}\n" +
-                          $"Priority: {_priority.ToString()}\n" +
-                          $"Status: {_status.ToString()}\n" +
-                          $"Summary: {_summary}\n" +
-                          $"Preconditions: {_preconditions}\n"
+        Console.WriteLine($"ID: {Id}\n" +
+                          $"Created At: {CreationDate}\n" +
+                          $"Priority: {Priority.ToString()}\n" +
+                          $"Status: {Status.ToString()}\n" +
+                          $"Summary: {Summary}\n" +
+                          $"Preconditions: {Preconditions}\n"
         );
     }
 
     protected void Fill(Priority priority, Status status, string summary, string preconditions)
     {
-        _priority = priority;
-        _summary = summary;
-        _preconditions = preconditions;
-        _status = status;
+        Priority = priority;
+        Summary = summary;
+        Preconditions = preconditions;
+        Status = status;
     }
 
     public virtual void Set()
     {
-        Priority priority = Priority.Low;
-        string summary = "";
-        Status status = Status.New;
-        string preconditions = "";
+        Priority priority = default;
+        string summary = default;
+        Status status = default;
+        string preconditions = default;
 
-        while (true)
-        {
-            Console.WriteLine("Enter priority:\n1 - Low\n2 - Medium\n3 - High\n4 - Critical");
-            if (int.TryParse(Console.ReadLine(), out var value))
-            {
-                if (value is < 4 and >= 0)
-                {
-                    priority = (Priority)value;
-                    break;
-                }
-            }
-
-            Console.WriteLine("Incorrect priority");
-        }
-
+        var value = Actions.Choose("Enter priority", "Low", "Medium", "High", "Critical");
+        priority = (Priority)value;
         Console.WriteLine("Enter Summary:");
         summary = Console.ReadLine();
         Console.WriteLine("Enter Preconditions");
         preconditions = Console.ReadLine();
-        while (true)
-        {
-            Console.WriteLine("Enter Status:\n1 - New\n2 - InProgress\n3 - Failed\n4 - Done");
-            if (int.TryParse(Console.ReadLine(), out var value))
-            {
-                if (value is < 4 and >= 0)
-                {
-                    status = (Status)value;
-                    break;
-                }
-            }
-
-            Console.WriteLine("Incorrect status");
-        }
+        
+        var tempValue = Actions.Choose("Enter Status: ",new[] {"New", "InProgress", "Failed", "Done" });
+        Console.WriteLine("Enter Status:\n1 - New\n2 - InProgress\n3 - Failed\n4 - Done");
+        status = (Status)tempValue;
+        
         Fill(priority, status, summary, preconditions);
     }
     

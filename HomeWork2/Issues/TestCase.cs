@@ -5,7 +5,9 @@ namespace HomeWork2
 {
     public class TestCase : Issue
     {
-        private List<Step> _steps;
+        private List<Step> _steps = new List<Step>();
+        
+        private string[] _testStepsWizard = {"Add test step", "Continue"};
 
         #region Unused Properties
         public IEnumerable<Step> Steps => _steps;
@@ -44,11 +46,8 @@ namespace HomeWork2
                 while (true)
                 {
                     Console.Clear();
-                    Console.WriteLine("Test steps wizard:\n1. Add test step\n2.Continue");
-
-                    if (int.TryParse(Console.ReadLine(), out var value))
-                    {
-                        switch (value)
+                    var value = Actions.Choose(_testStepsWizard);
+                    switch (value)
                         {
                             case 1:
                                 Console.Clear();
@@ -57,31 +56,27 @@ namespace HomeWork2
                                 Console.WriteLine("Specify the result");
                                 tempResult = Console.ReadLine();
                                 steps.Add(new Step(stepNumber++, tempAction, tempResult));
-                                break;
+                                continue;
                             case 2:
                                 break;
                         }
-                    }
-                    else
-                    {
-                        Console.WriteLine("Incorrect imput, press any button to continue");
-                    }
-
-                    Console.WriteLine("Add more steps? Y/Any char");
-                    if (Console.ReadLine() == "y")
-                    {
-                        continue;
-                    }
-
                     break;
-
                 }
 
-                Fill(steps);
+                Console.WriteLine("Add more steps? Y/Any char");
+                var tempValue = Actions.Choose("Yes", "Mo");
+                if (tempValue == 1)
+                {
+                    continue;
+                }
+
+                break;
             }
+
+            AddSteps(steps);
         }
 
-        private void Fill(IEnumerable<Step> steps)
+        public void AddSteps(IEnumerable<Step> steps)
         {
             _steps.AddRange(steps);
         }
@@ -92,6 +87,6 @@ namespace HomeWork2
             _steps.AddRange(steps);
 
         }
-        
+
     }
 }

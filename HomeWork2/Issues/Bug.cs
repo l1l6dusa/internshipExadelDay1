@@ -45,7 +45,7 @@ namespace HomeWork2
             
         }
 
-        public void Set()
+        public override void Set()
         {
             base.Set();
             while (true)
