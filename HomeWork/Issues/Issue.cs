@@ -10,7 +10,7 @@ namespace HomeWork2
 
     #region Properties
 
-    public int Id { get; }
+    public long Id { get; }
 
     public DateTime CreationDate { get; }
 
@@ -65,18 +65,12 @@ namespace HomeWork2
         string summary = default;
         Status status = default;
         string preconditions = default;
-
-        var value = Helper.Choose("Enter priority", "Low", "Medium", "High", "Critical");
-        priority = (Priority)value;
+        priority = (Priority) Helper.ChooseEnumOptions<Priority>();
         Console.WriteLine("Enter Summary:");
         summary = Console.ReadLine();
         Console.WriteLine("Enter Preconditions");
         preconditions = Console.ReadLine();
-        
-        var tempValue = Helper.Choose("Enter Status: ",new[] {"New", "InProgress", "Failed", "Done" });
-        Console.WriteLine("Enter Status:\n1 - New\n2 - InProgress\n3 - Failed\n4 - Done");
-        status = (Status)tempValue;
-        
+        status = (Status)Helper.ChooseEnumOptions<Status>();
         Fill(priority, status, summary, preconditions);
     }
     

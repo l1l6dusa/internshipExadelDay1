@@ -4,18 +4,18 @@ namespace HomeWork2
 {
     public class Bug : Issue
     {
-        private int _testCaseId;
-        private int _stepNumber;
+        private long? _testCaseId;
+        private int? _stepNumber;
         private string _actualResult;
         private string _expectedResult;
 
-        #region Unused properties
-        public int TestCaseId
+        #region Properties
+        public long? TestCaseId
         {
             get => _testCaseId;
             set => _testCaseId = value;
         }
-        public int StepNumber
+        public int? StepNumber
         {
             get => _stepNumber;
             set => _stepNumber = value;
@@ -32,7 +32,7 @@ namespace HomeWork2
         }
         #endregion
 
-        public Bug(Priority priority, string summary, string preconditions, Status status, int testCaseId, int stepNumber, string actualResult, string expectedResult) : base(priority, summary, preconditions, status)
+        public Bug(Priority priority, string summary, string preconditions, Status status, long testCaseId, int stepNumber, string actualResult, string expectedResult) : base(priority, summary, preconditions, status)
         {
             _testCaseId = testCaseId;
             _stepNumber = stepNumber;

@@ -32,22 +32,30 @@ namespace HomeWork2
                 {
                     Console.WriteLine($"{i + 1}. {args[i]}");
                 }
-
                 Console.Write($"Select the value between 1-{args.Length}: ");
                 if (int.TryParse(Console.ReadLine(), out var value) && value > 0 && value <= args.Length)
                 {
                     return value;
                 }
-                Console.WriteLine("Incorrect input, press any button to continue");
-                Console.Read();
+                else
+                {
+                    throw new InvalidInputException("Incorrect input, press any button to continue");
+                }
+                
+                
             }
         }
-        
         public static string Capitalize(this string target)
         {
             var charArray = target.ToCharArray();
             charArray[0] = Char.ToUpper(charArray[0]);
             return String.Concat(charArray);
+        }
+
+        public static int ChooseEnumOptions<T>() where T: Enum
+        {
+            var values = Enum.GetNames(typeof(T));
+            return Choose($"Select value of {typeof(T)}", values);
         }
     }
 }

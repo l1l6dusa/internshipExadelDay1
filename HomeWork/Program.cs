@@ -9,8 +9,8 @@ namespace HomeWork2
     {
         private static void Main(string[] args)
         {
-            var runner = new Runner();
-            runner.Execute();
+            var runner = new Application();
+            runner.Run();
         }
     }
 }
