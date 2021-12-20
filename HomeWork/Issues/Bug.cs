@@ -4,6 +4,7 @@ namespace HomeWork2
 {
     public class Bug : Issue
     {
+        //test
         private long? _testCaseId;
         private int? _stepNumber;
         private string _actualResult;
